@@ -15,18 +15,17 @@ from gtts import gTTS
 from googletrans import Translator
 
 
-st.title("TRADUCTOR.")
-st.subheader("Escucho lo que quieres traducir.")
+st.title("Traductor Multilenguaje")
+st.subheader("Habla, traduce y escucha el resultado en el idioma que escojas")
 
 
-image = Image.open('OIG7.jpg')
+image = Image.open('Multilenguaje_MMAL.jpg')
 
 st.image(image,width=300)
 with st.sidebar:
-    st.subheader("Traductor.")
-    st.write("Presiona el botón, cuando escuches la señal "
-                 "habla lo que quieres traducir, luego selecciona"   
-                 " la configuración de lenguaje que necesites.")
+    st.subheader("Instrucciones:")
+    st.write("Presiona el del micrófono, habla con claridad y luego selecciona los idiomas de entrada y salida."
+                 "Después pulsa convertir para escuchar la traducción.")
 
 
 st.write("Toca el Botón y habla lo que quires traducir")
@@ -73,41 +72,41 @@ if result:
         os.mkdir("temp")
     except:
         pass
-    st.title("Texto a Audio")
+    st.title("Traducción de voz")
     translator = Translator()
     
     text = str(result.get("GET_TEXT"))
     in_lang = st.selectbox(
         "Selecciona el lenguaje de Entrada",
-        ("Inglés", "Español", "Bengali", "Coreano", "Mandarín", "Japonés"),
+        ("Inglés", "Español", "Francés", "Italiano", "Coreano", "Japonés"),
     )
     if in_lang == "Inglés":
         input_language = "en"
     elif in_lang == "Español":
         input_language = "es"
-    elif in_lang == "Bengali":
-        input_language = "bn"
+    elif in_lang == "Francés":
+        input_language = "fr"
+    elif in_lang == "Italiano":
+        input_language = "it"
     elif in_lang == "Coreano":
         input_language = "ko"
-    elif in_lang == "Mandarín":
-        input_language = "zh-cn"
     elif in_lang == "Japonés":
         input_language = "ja"
     
     out_lang = st.selectbox(
         "Selecciona el lenguaje de salida",
-        ("Inglés", "Español", "Bengali", "Coreano", "Mandarín", "Japonés"),
+        ("Inglés", "Español", "Francés", "Italiano", "Coreano", "Japonés"),
     )
     if out_lang == "Inglés":
         output_language = "en"
     elif out_lang == "Español":
         output_language = "es"
-    elif out_lang == "Bengali":
-        output_language = "bn"
+    elif out_lang == "Francés":
+        output_language = "fr"
+    elif out_lang == "Italiano":
+        output_language = "it"
     elif out_lang == "Coreano":
         output_language = "ko"
-    elif out_lang == "Mandarín":
-        output_language = "zh-cn"
     elif out_lang == "Japonés":
         output_language = "ja"
     
@@ -158,7 +157,7 @@ if result:
     
     display_output_text = st.checkbox("Mostrar el texto")
     
-    if st.button("convertir"):
+    if st.button("Traducir y reproducir"):
         result, output_text = text_to_speech(input_language, output_language, text, tld)
         audio_file = open(f"temp/{result}.mp3", "rb")
         audio_bytes = audio_file.read()
